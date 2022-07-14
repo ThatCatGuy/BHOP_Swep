@@ -48,10 +48,10 @@ function SWEP:DrawHUD()
 	if weapon:GetClass() == "bhop_swep" then
 		local w, h = 300, 30
 		local x, y = math.floor( ScrW() / 2 - w / 2 ), ScrH() - h - 30
-		local velocity = LocalPlayer():GetVelocity():Length()
-		draw.RoundedBox(0, x, y, velocity / 5, h,Color(0,255,100,205))
+		local velocity = math.Round(LocalPlayer():GetVelocity():Length2DSqr() / 1000)
+		draw.RoundedBox(0, x, y, math.Clamp(velocity, 0, w), h,Color(0,255,100,205))
 		draw.RoundedBox( 0, x-1, y-1, w+2, h+2, Color( 20, 20, 20, 150 ) )
-		draw.SimpleText( math.Round(velocity, 0), "Trebuchet24", ScrW() / 2, y + 3, velocity >= 1000 and Color(220, 65, 65, 220) or color_white, TEXT_ALIGN_CENTER )
+		draw.SimpleText(velocity, "Trebuchet24", ScrW() / 2, y + 3, velocity >= 1000 and Color(220, 65, 65, 220) or color_white, TEXT_ALIGN_CENTER )
 	end
 end
 
